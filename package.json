@@ -1,0 +1,22 @@
+{
+  "name": "blathazar-bot",
+  "version": "2.0.0",
+  "description": "Bot Discord Among Us ULTRA - 22 commandes, AutoMod, tickets, logs, XP",
+  "type": "module",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "node --watch bot.js",
+    "deploy": "node bot.js"
+  },
+  "keywords": ["discord", "bot", "among-us", "moderation"],
+  "author": "famoussa81",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "pm2": "^7.0.3"
+  }
+}

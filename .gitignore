@@ -1,0 +1,6 @@
+node_modules/
+.env
+bot-data/
+.pm2/
+*.log
+.DS_Store
