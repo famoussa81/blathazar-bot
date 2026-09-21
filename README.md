@@ -10,8 +10,9 @@ Bot de gestion existant enrichi d'un installateur complet pour un serveur **Stea
 **Steal an Egg — setup premium**
 - `/setup-steal action:preview` affiche exactement ce qui sera configuré
 - `/setup-steal action:apply archive_existing:true` configure le serveur et range les anciens salons dans une archive privée
-- 22 rôles de notifications : raretés, MPS, Rifts, événements et pets précis
-- onboarding à cinq questions inspiré des meilleurs serveurs notifier
+- 25 rôles de notifications : raretés, MPS, Rifts, expériences et pets précis
+- 21 salons : alertes, Ping Center, last-seen, Dr. Scramble, guides, FAQ, aide Senz V2 et staff
+- onboarding à cinq questions et 24 choix inspiré du serveur notifier de référence
 - Welcome Screen, messages d'accueil, règlement et permissions propres
 - détection automatique du rôle géré de Senz V2
 - snapshot JSON avant modification et fonctionnement idempotent sans doublons
