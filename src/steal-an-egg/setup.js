@@ -105,13 +105,13 @@ async function configureDiscord(rest, guild, channels, roleIds, channelIds) {
       welcome_channels: [
         { channel_id: channels.welcome.id, description: 'Start here and choose your alerts', emoji_id: null, emoji_name: '👋' },
         { channel_id: channels.rules.id, description: 'Read the short safety rules', emoji_id: null, emoji_name: '📜' },
-        { channel_id: channels.eggNotifier.id, description: 'Live rare egg alerts', emoji_id: null, emoji_name: '🥚' },
-        { channel_id: channels.riftNotifier.id, description: 'Live Rift alerts', emoji_id: null, emoji_name: '🌀' },
-        { channel_id: channels.help.id, description: 'Get notifier help', emoji_id: null, emoji_name: '❓' },
+        { channel_id: channels.pingRoles.id, description: 'Choose exactly what should ping you', emoji_id: null, emoji_name: '🔗' },
+        { channel_id: channels.eggSpawns.id, description: 'Live rare egg alerts', emoji_id: null, emoji_name: '🥚' },
+        { channel_id: channels.scrambleExperiment.id, description: 'Live experiment and Rift alerts', emoji_id: null, emoji_name: '🧪' },
       ],
     },
   });
-  const defaults = ['welcome', 'rules', 'announcements', 'commands', 'help', 'bugs', 'suggestions', 'feedback'];
+  const defaults = ['welcome', 'rules', 'announcements', 'askSenz', 'commands', 'bugs', 'suggestions', 'feedback'];
   await rest.put(`/guilds/${guild.id}/onboarding`, {
     reason: REASON,
     body: {
@@ -145,6 +145,62 @@ function rulesEmbed() {
   ].join('\n')).setFooter({ text: 'Blathazar • STEAL-EGG-RULES' });
 }
 
+function pingCenterEmbed() {
+  return new EmbedBuilder().setColor(0x2ecc71).setTitle('🥚 Steal an Egg — Ping Center')
+    .setDescription('Use **Senz V2** to view and customize the alerts you receive: rarity, money tiers, individual pets, experiments and Rift banners.')
+    .addFields(
+      { name: 'Spawn alerts', value: 'Run `/steal-an-egg-config` and select `#🥚・egg-spawns`.' },
+      { name: 'Last-seen tracker', value: 'Run `/steal-an-egg-last-seen` and select `#🕘・last-seen`.' },
+      { name: 'Need the interactive menu?', value: 'Use `/help` from Senz V2 or ask it in `#🗣️・ask-senz-v2`.' },
+    ).setFooter({ text: 'Blathazar • STEAL-EGG-PING-CENTER' });
+}
+
+function eggGuideEmbed() {
+  return new EmbedBuilder().setColor(0xfacc15).setTitle('🥚 Angel & Demon Eggs — Rare Pet Guide')
+    .setDescription('The egg preview lets you see what is inside an egg before stealing or opening it. This is useful for completing your index and finding pets requested by Rift events.')
+    .addFields(
+      { name: '😇 Angel Eggs', value: '**Divine:** Arch Angel\n**Eternal:** Pegasus\n**Secret:** Centaur, Pure Jellyfish\n**Cosmic:** Sacred Moth, Holy Peacock' },
+      { name: '😈 Demon Eggs', value: '**Divine:** World Burner\n**Eternal:** Skeleton Horse\n**Secret:** RazorFang, Gargoyle\n**Cosmic:** Imp, Demon Hound' },
+    ).setFooter({ text: 'Blathazar • STEAL-EGG-EGG-GUIDE' });
+}
+
+function mutationGuideEmbed() {
+  return new EmbedBuilder().setColor(0x2ecc71).setTitle('🧬 Mutations & Multipliers')
+    .setDescription('Mutation multipliers visible in the current Senz V2 guide. Event-only mutations may not be obtainable through normal rolls.')
+    .addFields(
+      { name: 'Regular examples', value: '**Golden:** ×2.5 — about 4%\n**Silver:** ×1.2 — about 6%' },
+      { name: 'Special & event-only', value: '**Parasite:** ×3\n**Fractured:** ×2.67\n**Spirit Bloom:** ×2.5\n**Bloom:** ×1.25' },
+      { name: 'Important', value: 'Fusing two mutated pets does **not** guarantee a mutated result. Do not risk your best pets expecting a guaranteed mutation.' },
+    ).setFooter({ text: 'Blathazar • STEAL-EGG-MUTATION-GUIDE' });
+}
+
+function gameFaqEmbed() {
+  return new EmbedBuilder().setColor(0x6366f1).setTitle('❓ Steal an Egg — FAQ')
+    .addFields(
+      { name: 'Will two mutated pets guarantee a mutated fusion?', value: 'No. Fusion is random, even when both source pets are mutated.' },
+      { name: 'Why did my Rift pity counter reset?', value: 'It did not. Each Rift egg type tracks its pity separately.' },
+      { name: 'How often do boss fights happen?', value: 'They currently start automatically about every 30 minutes. Follow `#🧪・scramble-experiment`.' },
+      { name: 'Can rare egg spawns be predicted?', value: 'No. Predictions were patched and egg spawns are random. Be careful with anyone claiming guaranteed predictions.' },
+    ).setFooter({ text: 'Blathazar • STEAL-EGG-GAME-FAQ' });
+}
+
+function botGuideEmbed() {
+  return new EmbedBuilder().setColor(0xfacc15).setTitle('📚 Senz V2 — Configuration & Fixes')
+    .addFields(
+      { name: 'Configure spawn alerts', value: '`/steal-an-egg-config` → choose `#🥚・egg-spawns` and the rarity ping roles.' },
+      { name: 'Configure last seen', value: '`/steal-an-egg-last-seen` → choose `#🕘・last-seen`. Re-run it anytime to update roles or channels.' },
+      { name: 'No alerts are coming through', value: 'Confirm the configuration and ensure Senz V2 has **View Channel**, **Send Messages** and **Embed Links**.' },
+      { name: 'Role pings are not firing', value: 'Make sure a role is assigned for that rarity and remains mentionable by Senz V2.' },
+      { name: 'Alerts stopped after a long time', value: 'Senz V2 may disable unreachable channels after 14 days. Run `/steal-an-egg-config` again.' },
+    ).setFooter({ text: 'Blathazar • STEAL-EGG-BOT-GUIDE' });
+}
+
+function askSenzEmbed() {
+  return new EmbedBuilder().setColor(0x38bdf8).setTitle('🗣️ Ask Senz V2')
+    .setDescription('Ask Senz V2 about its commands, setup or troubleshooting here. You can also use `/help` to open its complete interactive help center.')
+    .setFooter({ text: 'Blathazar • STEAL-EGG-ASK-SENZ' });
+}
+
 async function ensureEmbed(channel, marker, embed) {
   const messages = await channel.messages.fetch({ limit: 25 });
   const old = messages.find(m => m.author.id === channel.client.user.id && m.embeds.some(e => e.footer?.text?.includes(marker)));
@@ -159,7 +215,7 @@ export async function setupPreview(interaction) {
     embeds: [new EmbedBuilder().setColor(BRAND.color).setTitle('🥚 Steal an Egg setup preview')
       .setDescription('Blathazar will configure the server without deleting messages, roles or members.')
       .addFields(
-        { name: 'Structure', value: `${ROLE_SPECS.length} synchronized roles • 5 categories • 17 text channels` },
+        { name: 'Structure', value: `${ROLE_SPECS.length} synchronized roles • 5 categories • 21 text channels` },
         { name: 'Onboarding', value: 'Rifts • general notifications • rarity • MPS • specific pets' },
         { name: 'Existing channels', value: interaction.options.getBoolean('archive_existing') ? 'Moved to a private archive; nothing is permanently deleted.' : 'Preserved in their current position.' },
         { name: 'Senz V2', value: senzRole ? `Detected: <@&${senzRole.id}>` : 'Not detected automatically. Its output channels can still be selected afterward.' },
@@ -207,6 +263,12 @@ export async function runStealSetup(interaction, token) {
   await configureDiscord(rest, guild, channels, roleIds, channelIds);
   await ensureEmbed(channels.welcome, 'STEAL-EGG-WELCOME', welcomeEmbed(guild.name));
   await ensureEmbed(channels.rules, 'STEAL-EGG-RULES', rulesEmbed());
+  await ensureEmbed(channels.pingRoles, 'STEAL-EGG-PING-CENTER', pingCenterEmbed());
+  await ensureEmbed(channels.eggGuide, 'STEAL-EGG-EGG-GUIDE', eggGuideEmbed());
+  await ensureEmbed(channels.otherGuides, 'STEAL-EGG-MUTATION-GUIDE', mutationGuideEmbed());
+  await ensureEmbed(channels.gameFaq, 'STEAL-EGG-GAME-FAQ', gameFaqEmbed());
+  await ensureEmbed(channels.botGuide, 'STEAL-EGG-BOT-GUIDE', botGuideEmbed());
+  await ensureEmbed(channels.askSenz, 'STEAL-EGG-ASK-SENZ', askSenzEmbed());
 
   let archived = 0;
   if (interaction.options.getBoolean('archive_existing')) {
@@ -225,7 +287,7 @@ export async function runStealSetup(interaction, token) {
       .setDescription('Roles, channels, permissions, Community settings, welcome screen and onboarding are ready.')
       .addFields(
         { name: 'Existing content', value: archived ? `${archived} old channels/categories processed into the private archive.` : 'Preserved.' },
-        { name: 'Senz V2', value: senzRole ? 'Detected and authorized in notifier channels.' : 'Run `/steal-an-egg-config` once and select the new channels.' },
+        { name: 'Senz V2', value: senzRole ? 'Detected and authorized in every notifier, guide and support channel.' : 'Run `/steal-an-egg-config` once and select the new channels.' },
         { name: 'Security', value: 'The pre-setup structure was saved before any changes.' },
       )],
   });
