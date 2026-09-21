@@ -57,7 +57,7 @@ pm2 logs blathazar
 DISCORD_TOKEN=MTU0...
 GUILD_ID=1541158872536842340
 CLIENT_ID=1541159388155486228
-SERVER_NAME=EggPulse | Steal an Egg
+SERVER_NAME=Steal an Egg Notifier
 SERVER_DESCRIPTION=Real-time Steal an Egg alerts for rare eggs, Rifts and special events.
 ENABLE_LEGACY_AMONG_US=false
 ENABLE_PRIVILEGED_INTENTS=false
@@ -77,6 +77,19 @@ Une fois la nouvelle version déployée et Blathazar en ligne :
 4. Dans Senz V2, lance `/steal-an-egg-config` une seule fois et sélectionne les nouveaux salons.
 
 Blathazar ne supprime aucun message, membre ou rôle existant. Avec `archive_existing:true`, les anciens salons sont déplacés dans `🗄️・ARCHIVES`, visible uniquement du staff.
+
+## 🚀 Déploiement Katabump
+
+Katabump garde déjà le bot en ligne : inutile d'ajouter PM2 à l'intérieur de son panel. Après fusion de la pull request :
+
+1. Arrête temporairement Blathazar depuis le panel Katabump.
+2. Mets à jour les fichiers depuis GitHub (ou utilise `git pull` dans la console si le dépôt est cloné).
+3. Vérifie que le vrai fichier `.env` conserve `DISCORD_TOKEN`, `GUILD_ID` et `CLIENT_ID`.
+4. Ajoute `SERVER_NAME=Steal an Egg Notifier` et `ENABLE_LEGACY_AMONG_US=false`.
+5. Lance `npm install`, puis garde la commande de démarrage `npm start`.
+6. Redémarre le service et vérifie les logs avant d'utiliser `/setup-steal`.
+
+Ne remplace jamais le vrai `.env` par `.env.example` : ce dernier ne contient que des exemples.
 
 ## 📋 Commandes (22)
 
