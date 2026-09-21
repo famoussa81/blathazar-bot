@@ -5,11 +5,11 @@ const P = PermissionsBitField.Flags;
 export const BRAND = {
   name: process.env.SERVER_NAME?.trim() || null,
   description: process.env.SERVER_DESCRIPTION || 'Real-time Steal an Egg alerts for rare eggs, Rifts and special events.',
-  color: 0x8b5cf6,
+  color: 0xd4af37,
 };
 
 export const ROLE_SPECS = [
-  { key: 'staff', name: '🛡️・Staff', color: 0x5865f2, hoist: true },
+  { key: 'staff', name: '🛡️・Staff', color: 0xd4af37, hoist: true },
   { key: 'updates', name: '❗ Update Ping', color: 0xef4444 },
   { key: 'adminAbuse', name: '🔔 Admin Abuse Ping', color: 0xf97316 },
   { key: 'leaks', name: '👀 Leak Ping', color: 0x38bdf8 },
