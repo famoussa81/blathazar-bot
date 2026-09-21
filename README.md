@@ -14,6 +14,7 @@ Bot de gestion existant enrichi d'un installateur complet pour un serveur **Stea
 - 21 salons : alertes, Ping Center, last-seen, Dr. Scramble, guides, FAQ, aide Senz V2 et staff
 - onboarding à cinq questions et 24 choix inspiré du serveur notifier de référence
 - Welcome Screen, messages d'accueil, règlement et permissions propres
+- identité visuelle noir/or appliquée automatiquement : icône, et bannière si l'avantage Discord est disponible
 - détection automatique du rôle géré de Senz V2
 - snapshot JSON avant modification et fonctionnement idempotent sans doublons
 
@@ -90,6 +91,11 @@ Katabump garde déjà le bot en ligne : inutile d'ajouter PM2 à l'intérieur de
 6. Redémarre le service et vérifie les logs avant d'utiliser `/setup-steal`.
 
 Ne remplace jamais le vrai `.env` par `.env.example` : ce dernier ne contient que des exemples.
+
+Les visuels prêts pour Discord se trouvent dans `assets/branding/` :
+
+- `server-icon.png` — 512 × 512, fond transparent
+- `server-banner.png` — 960 × 540
 
 ## 📋 Commandes (22)
 
