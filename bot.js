@@ -17,17 +17,20 @@ const BIENVENUE_ID = "1541158873304404122";
 const REGLES_ID = "1541163370827481129";
 const REGLES_MSG = "1541163453287370914";
 
+const intents = [
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.GuildVoiceStates,
+  GatewayIntentBits.DirectMessages,
+  GatewayIntentBits.GuildModeration,
+  GatewayIntentBits.GuildMessageReactions,
+];
+if (process.env.ENABLE_PRIVILEGED_INTENTS === 'true') {
+  intents.push(GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent);
+}
+
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.GuildModeration,
-    GatewayIntentBits.GuildMessageReactions
-  ],
+  intents,
   partials: [Partials.Channel, Partials.Message, Partials.GuildMember, Partials.Reaction, Partials.User]
 });
 
