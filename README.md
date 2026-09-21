@@ -94,8 +94,8 @@ Ne remplace jamais le vrai `.env` par `.env.example` : ce dernier ne contient qu
 
 Les visuels prêts pour Discord se trouvent dans `assets/branding/` :
 
-- `server-icon.png` — 512 × 512, fond transparent
-- `server-banner.png` — 960 × 540
+- `server-icon.png` — 384 × 384, fond transparent
+- `server-banner.jpg` — 960 × 540
 
 ## 📋 Commandes (22)
 
