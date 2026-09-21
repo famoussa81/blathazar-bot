@@ -8,6 +8,21 @@ const REASON = 'Blathazar Steal an Egg server setup';
 
 const clean = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
 
+async function loadBrandAssets(guild) {
+  const payload = {};
+  try {
+    const icon = await fs.readFile(path.resolve('assets/branding/server-icon.png'));
+    payload.icon = `data:image/png;base64,${icon.toString('base64')}`;
+  } catch {}
+  if (guild.features.includes('BANNER')) {
+    try {
+      const banner = await fs.readFile(path.resolve('assets/branding/server-banner.png'));
+      payload.banner = `data:image/png;base64,${banner.toString('base64')}`;
+    } catch {}
+  }
+  return payload;
+}
+
 async function snapshot(guild, rest) {
   let onboarding = null;
   try { onboarding = await rest.get(`/guilds/${guild.id}/onboarding`); } catch {}
@@ -82,10 +97,12 @@ const promptPayload = (roleIds, channelIds) => ONBOARDING.map(prompt => ({
 }));
 
 async function configureDiscord(rest, guild, channels, roleIds, channelIds) {
+  const brandAssets = await loadBrandAssets(guild);
   await rest.patch(`/guilds/${guild.id}`, {
     reason: REASON,
     body: {
       ...(BRAND.name ? { name: BRAND.name } : {}),
+      ...brandAssets,
       description: BRAND.description,
       features: [...new Set([...guild.features, 'COMMUNITY'])],
       rules_channel_id: channels.rules.id,
