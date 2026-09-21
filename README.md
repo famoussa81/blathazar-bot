@@ -59,9 +59,12 @@ CLIENT_ID=1541159388155486228
 SERVER_NAME=EggPulse | Steal an Egg
 SERVER_DESCRIPTION=Real-time Steal an Egg alerts for rare eggs, Rifts and special events.
 ENABLE_LEGACY_AMONG_US=false
+ENABLE_PRIVILEGED_INTENTS=false
 ```
 
 Ne mets jamais le token dans GitHub ou dans un message.
+
+Laisse `ENABLE_PRIVILEGED_INTENTS=false` tant que **Server Members Intent** et **Message Content Intent** ne sont pas activés dans le Discord Developer Portal. Le setup Steal an Egg n'en dépend pas.
 
 ## 🥚 Configurer le serveur Steal an Egg
 
