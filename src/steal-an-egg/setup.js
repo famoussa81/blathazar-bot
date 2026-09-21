@@ -146,7 +146,7 @@ function rulesEmbed() {
 }
 
 function pingCenterEmbed() {
-  return new EmbedBuilder().setColor(0x2ecc71).setTitle('🥚 Steal an Egg — Ping Center')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('🥚 Steal an Egg — Ping Center')
     .setDescription('Use **Senz V2** to view and customize the alerts you receive: rarity, money tiers, individual pets, experiments and Rift banners.')
     .addFields(
       { name: 'Spawn alerts', value: 'Run `/steal-an-egg-config` and select `#🥚・egg-spawns`.' },
@@ -156,7 +156,7 @@ function pingCenterEmbed() {
 }
 
 function eggGuideEmbed() {
-  return new EmbedBuilder().setColor(0xfacc15).setTitle('🥚 Angel & Demon Eggs — Rare Pet Guide')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('🥚 Angel & Demon Eggs — Rare Pet Guide')
     .setDescription('The egg preview lets you see what is inside an egg before stealing or opening it. This is useful for completing your index and finding pets requested by Rift events.')
     .addFields(
       { name: '😇 Angel Eggs', value: '**Divine:** Arch Angel\n**Eternal:** Pegasus\n**Secret:** Centaur, Pure Jellyfish\n**Cosmic:** Sacred Moth, Holy Peacock' },
@@ -165,7 +165,7 @@ function eggGuideEmbed() {
 }
 
 function mutationGuideEmbed() {
-  return new EmbedBuilder().setColor(0x2ecc71).setTitle('🧬 Mutations & Multipliers')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('🧬 Mutations & Multipliers')
     .setDescription('Mutation multipliers visible in the current Senz V2 guide. Event-only mutations may not be obtainable through normal rolls.')
     .addFields(
       { name: 'Regular examples', value: '**Golden:** ×2.5 — about 4%\n**Silver:** ×1.2 — about 6%' },
@@ -175,7 +175,7 @@ function mutationGuideEmbed() {
 }
 
 function gameFaqEmbed() {
-  return new EmbedBuilder().setColor(0x6366f1).setTitle('❓ Steal an Egg — FAQ')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('❓ Steal an Egg — FAQ')
     .addFields(
       { name: 'Will two mutated pets guarantee a mutated fusion?', value: 'No. Fusion is random, even when both source pets are mutated.' },
       { name: 'Why did my Rift pity counter reset?', value: 'It did not. Each Rift egg type tracks its pity separately.' },
@@ -185,7 +185,7 @@ function gameFaqEmbed() {
 }
 
 function botGuideEmbed() {
-  return new EmbedBuilder().setColor(0xfacc15).setTitle('📚 Senz V2 — Configuration & Fixes')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('📚 Senz V2 — Configuration & Fixes')
     .addFields(
       { name: 'Configure spawn alerts', value: '`/steal-an-egg-config` → choose `#🥚・egg-spawns` and the rarity ping roles.' },
       { name: 'Configure last seen', value: '`/steal-an-egg-last-seen` → choose `#🕘・last-seen`. Re-run it anytime to update roles or channels.' },
@@ -196,7 +196,7 @@ function botGuideEmbed() {
 }
 
 function askSenzEmbed() {
-  return new EmbedBuilder().setColor(0x38bdf8).setTitle('🗣️ Ask Senz V2')
+  return new EmbedBuilder().setColor(BRAND.color).setTitle('🗣️ Ask Senz V2')
     .setDescription('Ask Senz V2 about its commands, setup or troubleshooting here. You can also use `/help` to open its complete interactive help center.')
     .setFooter({ text: 'Blathazar • STEAL-EGG-ASK-SENZ' });
 }
