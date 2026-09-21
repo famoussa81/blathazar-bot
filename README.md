@@ -1,12 +1,20 @@
-# Blathazar — Bot Discord Among Us ULTRA
+# Blathazar — Steal an Egg Server Manager
 
-Bot le plus puissant pour gérer un serveur Discord + serveur Among Us (20 max, scalable 1000+). 
-Créé pour `among us` (ID: 1541158872536842340) — 22 commandes slash, AutoMod, tickets, logs, XP, anti-raid.
+Bot de gestion existant enrichi d'un installateur complet pour un serveur **Steal an Egg Notifier**. Il conserve les outils de modération utiles et peut créer/synchroniser les rôles, salons, permissions, Community, Welcome Screen et onboarding avec une seule commande.
 
 **Invite actuelle :** https://discord.gg/cpvXp3qHTm  
 **Bot :** `blathazar#8002` (ID 1541159388155486228)
 
 ## ✨ Features
+
+**Steal an Egg — setup premium**
+- `/setup-steal action:preview` affiche exactement ce qui sera configuré
+- `/setup-steal action:apply archive_existing:true` configure le serveur et range les anciens salons dans une archive privée
+- 22 rôles de notifications : raretés, MPS, Rifts, événements et pets précis
+- onboarding à cinq questions inspiré des meilleurs serveurs notifier
+- Welcome Screen, messages d'accueil, règlement et permissions propres
+- détection automatique du rôle géré de Senz V2
+- snapshot JSON avant modification et fonctionnement idempotent sans doublons
 
 **Gestion puissante (Modo/Admin)**
 - `/annonce`, `/game`, `/dmall` (DM masse safe 1.2s), `/ban`, `/kick`, `/mute`, `/unmute`, `/warn` (3 warns = timeout), `/clear`, `/lock`, `/unlock`, `/slowmode`, `/role`, `/nick`, `/sondage`, `/ticket`, `/backup`, `/lobby`
@@ -15,6 +23,8 @@ Créé pour `among us` (ID: 1541158872536842340) — 22 commandes slash, AutoMod
 - `/cherche code:ABCDEF map:Skeld` → poste + ping @Joueur dans #cherche-partie
 - `/game heure:21h` → annonce + event vocal auto
 - `/lobby open/close/clear/move-all` → gère les vocaux
+
+Ces trois commandes historiques sont masquées par défaut. Mets `ENABLE_LEGACY_AMONG_US=true` pour les réactiver.
 
 **Auto**
 - Anti-raid (5 joins/10s = lock), anti-spam, anti-lien, anti-insulte
@@ -46,7 +56,23 @@ pm2 logs blathazar
 DISCORD_TOKEN=MTU0...
 GUILD_ID=1541158872536842340
 CLIENT_ID=1541159388155486228
+SERVER_NAME=EggPulse | Steal an Egg
+SERVER_DESCRIPTION=Real-time Steal an Egg alerts for rare eggs, Rifts and special events.
+ENABLE_LEGACY_AMONG_US=false
 ```
+
+Ne mets jamais le token dans GitHub ou dans un message.
+
+## 🥚 Configurer le serveur Steal an Egg
+
+Une fois la nouvelle version déployée et Blathazar en ligne :
+
+1. Lance `/setup-steal action:preview archive_existing:true`.
+2. Vérifie le résumé privé.
+3. Lance `/setup-steal action:apply archive_existing:true`.
+4. Dans Senz V2, lance `/steal-an-egg-config` une seule fois et sélectionne les nouveaux salons.
+
+Blathazar ne supprime aucun message, membre ou rôle existant. Avec `archive_existing:true`, les anciens salons sont déplacés dans `🗄️・ARCHIVES`, visible uniquement du staff.
 
 ## 📋 Commandes (22)
 
