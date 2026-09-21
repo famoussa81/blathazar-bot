@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import 'dotenv/config';
+import { runStealSetup, setupPreview } from './src/steal-an-egg/setup.js';
 
 const TOKEN = process.env.DISCORD_TOKEN;
 const GUILD_ID = process.env.GUILD_ID || "1541158872536842340";
@@ -19,7 +20,9 @@ const REGLES_MSG = "1541163453287370914";
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.GuildModeration,
@@ -30,6 +33,13 @@ const client = new Client({
 
 // === COMMANDES V2 - 20 COMMANDES ===
 const commands = [
+  new SlashCommandBuilder()
+    .setName('setup-steal')
+    .setDescription('[ADMIN] Configure le serveur Steal an Egg complet')
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
+    .addStringOption(o => o.setName('action').setDescription('Prévisualiser ou appliquer').setRequired(true)
+      .addChoices({ name: 'Preview', value: 'preview' }, { name: 'Apply', value: 'apply' }))
+    .addBooleanOption(o => o.setName('archive_existing').setDescription('Déplacer les anciens salons dans une archive privée')),
   // GESTION PUISSANTE
   new SlashCommandBuilder().setName('annonce').setDescription('[MODO] Annonce + ping').addStringOption(o=>o.setName('titre').setDescription('Titre').setRequired(true)).addStringOption(o=>o.setName('message').setDescription('Message').setRequired(true)).addBooleanOption(o=>o.setName('ping').setDescription('Ping Joueur?')),
   new SlashCommandBuilder().setName('dmall').setDescription('[ADMIN] DM tout le serveur').addStringOption(o=>o.setName('message').setDescription('Message').setRequired(true)).addStringOption(o=>o.setName('confirmation').setDescription('CONFIRMER').setRequired(true)),
@@ -54,7 +64,7 @@ const commands = [
   new SlashCommandBuilder().setName('stats').setDescription('Stats serveur détaillées'),
   new SlashCommandBuilder().setName('top').setDescription('Top level/XP'),
   new SlashCommandBuilder().setName('help').setDescription('Aide complète'),
-].map(c=>c.toJSON());
+].map(c=>c.toJSON()).filter(c => process.env.ENABLE_LEGACY_AMONG_US === 'true' || !['game', 'cherche', 'lobby'].includes(c.name));
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 async function deploy(){
@@ -66,7 +76,7 @@ function isModo(m){ if(!m) return false; if(m.id==='1525984700018065452') return
 function isAdmin(m){ return m.permissions.has(PermissionsBitField.Flags.Administrator) || m.id==='1525984700018065452'; }
 
 // === PERSISTANCE PUISSANTE ===
-const DATA_DIR = "C:/Users/PC/bot-data";
+const DATA_DIR = process.env.DATA_DIR || path.resolve('bot-data');
 try{ fs.mkdirSync(DATA_DIR, {recursive:true}); }catch{}
 function loadMap(file, map){
   try{
@@ -237,6 +247,17 @@ client.on('interactionCreate', async inter=>{
     return;
   }
   if(!inter.isChatInputCommand() || inter.guildId!==GUILD_ID) return;
+  if(inter.commandName==='setup-steal'){
+    try{
+      const action=inter.options.getString('action');
+      if(action==='preview') return setupPreview(inter);
+      return runStealSetup(inter, TOKEN);
+    }catch(e){
+      console.error('setup-steal', e);
+      if(inter.replied||inter.deferred) return inter.editReply({content:`❌ Setup arrêté sans suppression: ${e.message}`, embeds:[]}).catch(()=>{});
+      return inter.reply({content:`❌ Setup arrêté sans suppression: ${e.message}`, ephemeral:true}).catch(()=>{});
+    }
+  }
   const m = inter.member;
   try{
     if(inter.commandName==='annonce'){
