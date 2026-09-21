@@ -16,8 +16,8 @@ async function loadBrandAssets(guild) {
   } catch {}
   if (guild.features.includes('BANNER')) {
     try {
-      const banner = await fs.readFile(path.resolve('assets/branding/server-banner.png'));
-      payload.banner = `data:image/png;base64,${banner.toString('base64')}`;
+      const banner = await fs.readFile(path.resolve('assets/branding/server-banner.jpg'));
+      payload.banner = `data:image/jpeg;base64,${banner.toString('base64')}`;
     } catch {}
   }
   return payload;
